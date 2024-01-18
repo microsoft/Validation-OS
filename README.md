@@ -1,14 +1,28 @@
-# Project
+# Validation OS SDK Samples
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+This repo contains a collection of sample apps to help get started with developing x64 and arm64
+applications using the Validation OS Modular SDK.
 
-As the maintainer of this project, please make a few updates:
+You can learn more about [Microsoft Validation OS](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/validation-os-overview)
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+The multimedia sample contains an mp4 file that exceeds GitHub's file size limit. To be able to work with large files
+in the repo, please install the [Git Large File Storage](https://git-lfs.github.com) Git extension.
+
+
+## Samples
+
+- [App](https://github.com/microsoft/Validation-OS/tree/main/Samples/App) - 'Hello World' Win32 sample.
+- [Audio](https://github.com/microsoft/Validation-OS/tree/main/Samples/Audio) - A set of samples demostrate various audio functions using WASAPI APIs.
+- [Bluetooth](https://github.com/microsoft/Validation-OS/tree/main/Samples/Bluetooth) - This sample demonstrates using the bluetooth API BluetoothFindFirstDevice to enumerate bluetooth devices.
+- [Camera](https://github.com/microsoft/Validation-OS/tree/main/Samples/Camera) - This sample demonstrates how to use Media Foundation to capture video from RGB Camera and IR Camera.
+- [Graphics](https://github.com/microsoft/Validation-OS/tree/main/Samples/Graphics) - A set of samples act as an introduction to Direct3D 12.
+- [HelloHCS](https://github.com/microsoft/Validation-OS/tree/main/Samples/HelloHCS) - This sample demonstrate the use of the Host Compute System (HCS) API to manage a virtual machine.
+- [Multimedia](https://github.com/microsoft/Validation-OS/tree/main/Samples/Multimedia/MediaEngineDCompWin32Sample) - This is a sample Win32 desktop application written in C++ which demonstrates media playback using the MediaFoundation IMFMediaEngine API and DirectComposition.
+- [Power](https://github.com/microsoft/Validation-OS/tree/main/Samples/Power) - This sample demonstrates using the Device Power API to disable a device from waking the system
+- [PowerShell](https://github.com/microsoft/Validation-OS/tree/main/Samples/PowerShell) - This sample demomstrates calling basic powershell commands from a Win32 Windows application
+- [SMB](https://github.com/microsoft/Validation-OS/tree/main/Samples/SMB) - This sample demonstrates accessing basic network functionality using Win32 NetShareEnum API by displaying the shares created on a network server
+- [Sensors](https://github.com/microsoft/Validation-OS/tree/main/Samples/Sensors) - This is a set of sample Win32 desktop applications written in C++/WinRT to demonstrate how to access various sensors
+- [WiFi](https://github.com/microsoft/Validation-OS/tree/main/Samples/WiFi) - This sample demonstrates using WLAN APIs to scan, connect and disconnect WiFi Networks.
 
 ## Contributing
 
