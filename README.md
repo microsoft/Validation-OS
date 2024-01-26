@@ -5,6 +5,8 @@ applications using the Validation OS Modular SDK.
 
 You can learn more about [Microsoft Validation OS](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/validation-os-overview)
 
+## Important: Git Large File Storage extension is required
+
 The multimedia sample contains an mp4 file that exceeds GitHub's file size limit. To be able to work with large files
 in the repo, please install the [Git Large File Storage](https://git-lfs.github.com) Git extension.
 
