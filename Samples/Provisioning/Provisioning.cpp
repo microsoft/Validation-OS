@@ -26,6 +26,14 @@ int main(int argc, char** argv)
     auto CoInit = wil::CoInitializeEx(COINIT_MULTITHREADED);
     wmi_run();
     wmi_getDriveLetters();
+
+    // Explicitly clear COM pointers before uninitializing COM
+    pSvc.reset();
+    pLoc.reset();
+
+    CoUninitialize();
+
+    return 0;
 }
 
 //
