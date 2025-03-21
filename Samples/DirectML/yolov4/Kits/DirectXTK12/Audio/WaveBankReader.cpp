@@ -228,13 +228,20 @@ namespace
             return nBlockAlign * 2 / uint32_t(nChannels) - 12;
         }
 
-        void AdpcmFillCoefficientTable(ADPCMWAVEFORMAT *fmt) const
+        void AdpcmFillCoefficientTable(ADPCMWAVEFORMAT *fmt, size_t fmtSize) const
         {
             // These are fixed since we are always using MS ADPCM
             fmt->wNumCoef = 7 /* MSADPCM_NUM_COEFFICIENTS */;
 
+            // Prevent integer underflow: Ensure fmtSize is large enough before doing memcpy
+            size_t aCoefSize = sizeof(ADPCMCOEFSET) * fmt->wNumCoef;
+            if (fmtSize < (sizeof(WAVEFORMATEX) + 2 * sizeof(WORD) + aCoefSize))
+            {
+                throw std::invalid_argument("ADPCMWAVEFORMAT: AdpcmFillCoefficientTable: Buffer overflow detected, insufficient memory allocated for fmt->aCoef\n");
+            }
+
             static ADPCMCOEFSET aCoef[7] = { { 256, 0}, {512, -256}, {0,0}, {192,64}, {240,0}, {460, -208}, {392,-232} };
-            memcpy(&fmt->aCoef, aCoef, sizeof(aCoef));
+            memcpy_s(&fmt->aCoef, aCoefSize, aCoef, sizeof(aCoef));
         }
     };
 
@@ -970,7 +977,7 @@ HRESULT WaveBankReader::Impl::GetFormat(uint32_t index, WAVEFORMATEX* pFormat, s
             {
                 auto adpcmFmt = reinterpret_cast<ADPCMWAVEFORMAT*>(pFormat);
                 adpcmFmt->wSamplesPerBlock = static_cast<WORD>(miniFmt.AdpcmSamplesPerBlock());
-                miniFmt.AdpcmFillCoefficientTable(adpcmFmt);
+                miniFmt.AdpcmFillCoefficientTable(adpcmFmt, maxsize);
             }
             break;
 

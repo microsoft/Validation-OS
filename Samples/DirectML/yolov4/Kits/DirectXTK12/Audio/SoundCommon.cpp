@@ -557,8 +557,16 @@ void DirectX::CreateADPCM(WAVEFORMATEX* wfx, size_t wfxSize, int sampleRate, int
     adpcm->wSamplesPerBlock = static_cast<WORD>(samplesPerBlock);
     adpcm->wNumCoef = 7 /* MSADPCM_NUM_COEFFICIENTS */;
 
+    // Prevent integer underflow: Ensure wfxSize is large enough before doing memcpy
+    size_t aCoefSize = sizeof(ADPCMCOEFSET) * adpcm->wNumCoef;
+    if (wfxSize < (sizeof(WAVEFORMATEX) + 2 * sizeof(WORD) + aCoefSize))
+    {
+        DebugTrace("CreateADPCM found a buffer overflow because insufficient memory was allocated to adpcm->aCoef\n");
+        throw std::invalid_argument("ADPCMWAVEFORMAT");
+    }
+
     static ADPCMCOEFSET aCoef[7] = { { 256, 0}, {512, -256}, {0,0}, {192,64}, {240,0}, {460, -208}, {392,-232} };
-    memcpy(&adpcm->aCoef, aCoef, sizeof(aCoef));
+    memcpy_s(&adpcm->aCoef, aCoefSize, aCoef, sizeof(aCoef));
 
     assert(IsValid(wfx));
 }
