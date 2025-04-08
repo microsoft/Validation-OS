@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.5.1">
+  <!-- Setting up the terrapin tool version location (where it will be pulled in from NuGet) -->
+  <PropertyGroup>
+    <!-- EDIT THIS WHEN YOU NEED TO UPDATE THE TRT VERSION YOU'RE PULLING IN -->
+    <TerrapinRetrievalToolVersion>TerrapinRetrievalTool.1.0.2</TerrapinRetrievalToolVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TerrapinRetrievalToolLocation>$(MSBuildProjectDirectory)\packages\$(TerrapinRetrievalToolVersion)</TerrapinRetrievalToolLocation>
+  </PropertyGroup>
+
+  <!-- VCPKG has additional options we need to set for using the TRT, enabling debug, and using a custom triplet to make BinSkim happy. We set them here -->
+  <PropertyGroup>
+    <!-- For using the Terrapin Retrieval Tool (TRT). You need to specify the exact path that the TRT gets pulled in. -->
+    <VcpkgAdditionalInstallOptions>"--x-asset-sources=x-script,$(TerrapinRetrievalToolLocation)\contentFiles\TerrapinRetrievalTool.exe -b https://vcpkg.storage.devpackages.microsoft.io/artifacts/ -a true -p {url} -s {sha512} -d {dst};x-block-origin"</VcpkgAdditionalInstallOptions>
+    <!-- For enabling VCPKG Debug Output to better diagnose local and pipelie build failures in VCPKG recipes -->
+    <VcpkgAdditionalInstallOptions>$(VcpkgAdditionalInstallOptions) --debug</VcpkgAdditionalInstallOptions> 
+    <!-- This disables the use of the local binary cache that VCPKG uses - this option can be useful for debugging issues locally if you need to re-build packages a lot. -->
+    <VcpkgAdditionalInstallOptions>$(VcpkgAdditionalInstallOptions) --binarysource=clear</VcpkgAdditionalInstallOptions>
+  </PropertyGroup>
+
+
+</Project>

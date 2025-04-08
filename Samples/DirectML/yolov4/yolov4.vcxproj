@@ -41,6 +41,7 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>yolov4</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -165,6 +166,18 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <VcpkgUseStatic>true</VcpkgUseStatic>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <VcpkgUseStatic>true</VcpkgUseStatic>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <VcpkgUseStatic>true</VcpkgUseStatic>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <VcpkgUseStatic>true</VcpkgUseStatic>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -248,8 +261,10 @@ copy $(ProjectDir)data\. $(OutDir)data</Command>
       <CETCompat>true</CETCompat>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)data
-copy $(ProjectDir)data\. $(OutDir)data</Command>
+      <Command>
+		  mkdir $(OutDir)data
+		  copy $(ProjectDir)data\. $(OutDir)data
+	  </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
@@ -278,8 +293,10 @@ copy $(ProjectDir)data\. $(OutDir)data</Command>
       </CETCompat>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)data
-copy $(ProjectDir)data\. $(OutDir)data</Command>
+      <Command>
+		  mkdir $(OutDir)data
+		  copy $(ProjectDir)data\. $(OutDir)data
+	  </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -362,9 +379,9 @@ copy $(ProjectDir)data\. $(OutDir)data</Command>
       <AdditionalIncludeDirectories>$(ProjectDir);Kits\DirectXTK12\Inc;Kits\ATGTK;$(ProjectDir)..\Libraries\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <DisableSpecificWarnings>4238;4201;4100</DisableSpecificWarnings>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <ControlFlowGuard>Guard</ControlFlowGuard>
       <AdditionalOptions>/Qspectre %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -375,8 +392,10 @@ copy $(ProjectDir)data\. $(OutDir)data</Command>
       <CETCompat>true</CETCompat>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)data
-copy $(ProjectDir)data\. $(OutDir)data</Command>
+      <Command>
+		  mkdir $(OutDir)data
+		  copy $(ProjectDir)data\. $(OutDir)data
+	  </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
@@ -408,8 +427,10 @@ copy $(ProjectDir)data\. $(OutDir)data</Command>
       </CETCompat>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)data
-copy $(ProjectDir)data\. $(OutDir)data</Command>
+      <Command>
+		  mkdir $(OutDir)data
+		  copy $(ProjectDir)data\. $(OutDir)data
+	  </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -463,11 +484,6 @@ copy $(ProjectDir)data\. $(OutDir)data</Command>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\Assets</DestinationFolders>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(OutDir)\Assets</DestinationFolders>
     </CopyFileToFolders>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Kits\DirectXTK12\DirectXTK_Desktop_2017_Win10.vcxproj">
-      <Project>{3e0e8608-cd9b-4c76-af33-29ca38f2c9f0}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\ImageToTensor.hlsl">
