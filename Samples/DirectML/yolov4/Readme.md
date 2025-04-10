@@ -32,3 +32,9 @@ The file should be placed in a "Data" subdirectory. e.g.
  (arXiv)](https://arxiv.org/abs/2004.10934)
 * Original GitHub: https://github.com/AlexeyAB/darknet
 * TensorFlow implementation: https://github.com/hunglc007/tensorflow-yolov4-tflite
+
+## Install VCPKG 
+* `git clone https://github.com/microsoft/vcpkg.git`
+* `cd vcpkg; .\bootstrap-vcpkg.bat`
+* Then under the repo root, run `vcpkg integrate install`
+Full steps are found here: https://learn.microsoft.com/en-us/vcpkg/get_started/get-started-vs?pivots=shell-powershell

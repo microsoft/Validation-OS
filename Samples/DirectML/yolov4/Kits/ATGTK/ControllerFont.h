@@ -9,8 +9,8 @@
 
 #pragma once
 
-#include "SpriteBatch.h"
-#include "SpriteFont.h"
+#include "directxtk12/SpriteBatch.h"
+#include "directxtk12/SpriteFont.h"
 
 
 namespace DX

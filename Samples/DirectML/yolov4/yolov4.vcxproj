@@ -41,6 +41,7 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>yolov4</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -104,6 +105,7 @@
     <SpectreMitigation>Spectre</SpectreMitigation>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Condition="Exists('$(VCInstallDir)vcpkg\scripts\buildsystems\msbuild\vcpkg.props')" Project="$(VCInstallDir)vcpkg\scripts\buildsystems\msbuild\vcpkg.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared">
@@ -164,6 +166,18 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <VcpkgUseStatic>true</VcpkgUseStatic>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <VcpkgUseStatic>true</VcpkgUseStatic>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <VcpkgUseStatic>true</VcpkgUseStatic>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <VcpkgUseStatic>true</VcpkgUseStatic>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -248,8 +262,10 @@ copy $(ProjectDir)data\. $(OutDir)data</Command>
       <CETCompat>true</CETCompat>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)data
-copy $(ProjectDir)data\. $(OutDir)data</Command>
+      <Command>
+		  mkdir $(OutDir)data
+		  copy $(ProjectDir)data\. $(OutDir)data
+	  </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
@@ -278,8 +294,10 @@ copy $(ProjectDir)data\. $(OutDir)data</Command>
       </CETCompat>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)data
-copy $(ProjectDir)data\. $(OutDir)data</Command>
+      <Command>
+		  mkdir $(OutDir)data
+		  copy $(ProjectDir)data\. $(OutDir)data
+	  </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -362,9 +380,9 @@ copy $(ProjectDir)data\. $(OutDir)data</Command>
       <AdditionalIncludeDirectories>$(ProjectDir);Kits\DirectXTK12\Inc;Kits\ATGTK;$(ProjectDir)..\Libraries\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <DisableSpecificWarnings>4238;4201;4100</DisableSpecificWarnings>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <ControlFlowGuard>Guard</ControlFlowGuard>
       <AdditionalOptions>/Qspectre %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -375,8 +393,10 @@ copy $(ProjectDir)data\. $(OutDir)data</Command>
       <CETCompat>true</CETCompat>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)data
-copy $(ProjectDir)data\. $(OutDir)data</Command>
+      <Command>
+		  mkdir $(OutDir)data
+		  copy $(ProjectDir)data\. $(OutDir)data
+	  </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
@@ -408,8 +428,10 @@ copy $(ProjectDir)data\. $(OutDir)data</Command>
       </CETCompat>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)data
-copy $(ProjectDir)data\. $(OutDir)data</Command>
+      <Command>
+		  mkdir $(OutDir)data
+		  copy $(ProjectDir)data\. $(OutDir)data
+	  </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -463,11 +485,6 @@ copy $(ProjectDir)data\. $(OutDir)data</Command>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\Assets</DestinationFolders>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(OutDir)\Assets</DestinationFolders>
     </CopyFileToFolders>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Kits\DirectXTK12\DirectXTK_Desktop_2017_Win10.vcxproj">
-      <Project>{3e0e8608-cd9b-4c76-af33-29ca38f2c9f0}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\ImageToTensor.hlsl">
@@ -611,6 +628,7 @@ copy $(ProjectDir)data\. $(OutDir)data</Command>
     </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <Import Condition="Exists('$(VCInstallDir)vcpkg\scripts\buildsystems\msbuild\vcpkg.targets')" Project="$(VCInstallDir)vcpkg\scripts\buildsystems\msbuild\vcpkg.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="packages\WinPixEventRuntime.1.0.210209001\build\WinPixEventRuntime.targets" Condition="Exists('packages\WinPixEventRuntime.1.0.210209001\build\WinPixEventRuntime.targets')" />
     <Import Project="packages\Microsoft.AI.DirectML.1.15.2\build\Microsoft.AI.DirectML.targets" Condition="Exists('packages\Microsoft.AI.DirectML.1.15.2\build\Microsoft.AI.DirectML.targets')" />
@@ -628,4 +646,10 @@ copy $(ProjectDir)data\. $(OutDir)data</Command>
     <Error Condition="!Exists('packages\Microsoft.AI.DirectML.1.15.2\build\Microsoft.AI.DirectML.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.AI.DirectML.1.15.2\build\Microsoft.AI.DirectML.props'))" />
     <Error Condition="!Exists('packages\Microsoft.AI.DirectML.1.15.2\build\Microsoft.AI.DirectML.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.AI.DirectML.1.15.2\build\Microsoft.AI.DirectML.targets'))" />
   </Target>
-</Project>
+<Target Name="EnsureVCPKG" BeforeTargets="_CheckForInvalidConfigurationAndPlatform">
+    <PropertyGroup>
+      <ErrorText>This project requires the VCPKG integration support in Visual Studio. Add the Microsoft.VisualStudio.Component.Vcpkg component to your install.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(VCInstallDir)vcpkg')" Text="$(ErrorText)" />
+  </Target>
+  </Project>

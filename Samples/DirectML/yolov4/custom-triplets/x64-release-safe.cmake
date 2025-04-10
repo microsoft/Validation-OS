@@ -1,0 +1,7 @@
+set(VCPKG_TARGET_ARCHITECTURE x64)
+set(VCPKG_CRT_LINKAGE dynamic)
+set(VCPKG_LIBRARY_LINKAGE dynamic)
+set(VCPKG_BUILD_TYPE release)
+set(VCPKG_CXX_FLAGS "/Qspectre /guard:cf /sdl")
+set(VCPKG_C_FLAGS "/Qspectre /guard:cf /sdl")
+set(VCPKG_LINKER_FLAGS "/guard:cf /DYNAMICBASE /CETCOMPAT")
