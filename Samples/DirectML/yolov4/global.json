@@ -1,5 +1,0 @@
-{
-  "msbuild-sdks": {
-      "Microsoft.Build.Vcpkg": "2024.2.12.141-345ac44ab"
-  }
-}

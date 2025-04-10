@@ -105,6 +105,7 @@
     <SpectreMitigation>Spectre</SpectreMitigation>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Condition="Exists('$(VCInstallDir)vcpkg\scripts\buildsystems\msbuild\vcpkg.props')" Project="$(VCInstallDir)vcpkg\scripts\buildsystems\msbuild\vcpkg.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared">
@@ -627,6 +628,7 @@ copy $(ProjectDir)data\. $(OutDir)data</Command>
     </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <Import Condition="Exists('$(VCInstallDir)vcpkg\scripts\buildsystems\msbuild\vcpkg.targets')" Project="$(VCInstallDir)vcpkg\scripts\buildsystems\msbuild\vcpkg.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="packages\WinPixEventRuntime.1.0.210209001\build\WinPixEventRuntime.targets" Condition="Exists('packages\WinPixEventRuntime.1.0.210209001\build\WinPixEventRuntime.targets')" />
     <Import Project="packages\Microsoft.AI.DirectML.1.15.2\build\Microsoft.AI.DirectML.targets" Condition="Exists('packages\Microsoft.AI.DirectML.1.15.2\build\Microsoft.AI.DirectML.targets')" />
@@ -644,4 +646,10 @@ copy $(ProjectDir)data\. $(OutDir)data</Command>
     <Error Condition="!Exists('packages\Microsoft.AI.DirectML.1.15.2\build\Microsoft.AI.DirectML.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.AI.DirectML.1.15.2\build\Microsoft.AI.DirectML.props'))" />
     <Error Condition="!Exists('packages\Microsoft.AI.DirectML.1.15.2\build\Microsoft.AI.DirectML.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.AI.DirectML.1.15.2\build\Microsoft.AI.DirectML.targets'))" />
   </Target>
-</Project>
+<Target Name="EnsureVCPKG" BeforeTargets="_CheckForInvalidConfigurationAndPlatform">
+    <PropertyGroup>
+      <ErrorText>This project requires the VCPKG integration support in Visual Studio. Add the Microsoft.VisualStudio.Component.Vcpkg component to your install.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(VCInstallDir)vcpkg')" Text="$(ErrorText)" />
+  </Target>
+  </Project>
