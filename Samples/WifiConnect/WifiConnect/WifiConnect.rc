@@ -1,0 +1,4 @@
+#include "resource.h"
+
+IDR_WIFI_PROFILE_WPA2    RCDATA    "WifiProfileWpa2.xml"
+IDR_WIFI_PROFILE_OPEN    RCDATA    "WifiProfileOpen.xml"
